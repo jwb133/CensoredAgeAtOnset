@@ -1,0 +1,5 @@
+# Compiled Stan models
+*.exe
+
+# R binary data files
+*.RData
