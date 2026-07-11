@@ -3,3 +3,10 @@
 
 # R binary data files
 *.RData
+
+# Stat binary data files
+*.dta
+
+# macOS files
+.DS_Store
+
