@@ -1,7 +1,4 @@
-* cd "H:\DRG\AgeOnset\2023\Longitudinal 2024"
-* log using "H:\DRG\AgeOnset\2023\Longitudinal 2024\Make_HPC_08_10_25.log", replace
-
-* program drop mycubicspline
+capture program drop mycubicspline
 program define mycubicspline, rclass 
 gen u1=t
 gen u2=term1 
@@ -17,7 +14,6 @@ version 18.5
 set seed 973686515 
 set sortseed 413688647
 
-* forvalues i = 1/100 {	
 forvalues i = 1/10000 {
 qui{
 

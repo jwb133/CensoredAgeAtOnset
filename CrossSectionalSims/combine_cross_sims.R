@@ -7,7 +7,11 @@ batchLoad <- new.env()
 # load first batch into global env
 load(paste0(prefix, "_1.RData"))
 
-listNames <- c("yMod1Res", "yMod2Res", "y2Mod1Res", "y2Mod2Res")
+listNames <- c("y_crossModelRes",
+               "y_crossModelAgeOnsetAdjRes",
+               "y2_crossModelRes",
+               "y2_crossModelAgeOnsetAdjRes")
+  
 components <- c("ests", "stderrs", "ciLower", "ciUpper", "essBulk", "essTail")
 
 for (i in 2:nBatches) {
@@ -43,19 +47,31 @@ trueParms_set1 <- c(
   94
 )
 
-# true parameters in model 2 when model 2 is correct
-# (age at onset effect=time since onset effect)
 trueParms_set2 <- c(
   46 * (1 - 48.6 / 81),
   48.6 / 81,
   sqrt(81 * (1 - (48.6 / 81)^2)),
   100,
-  (1+1),
   1,
   27,
-  -1,
-  94
+  94,
+  0,
+  1
 )
+
+trueParms_set4 <- c(
+  46 * (1 - 48.6 / 81),
+  48.6 / 81,
+  sqrt(81 * (1 - (48.6 / 81)^2)),
+  100,
+  2,
+  27,
+  94,
+  1,
+  1
+)
+
+
 
 summarise_res <- function(res, trueParms) {
   list(
@@ -71,11 +87,9 @@ summarise_res <- function(res, trueParms) {
   )
 }
 
-summarise_res(yMod1Res,  trueParms_set1)
-summarise_res(yMod2Res,  trueParms_set3)
-# wrong model fitted below to y2
-summarise_res(y2Mod1Res, trueParms_set1)
-summarise_res(y2Mod2Res, trueParms_set2)
+summarise_res(y_crossModelRes,  trueParms_set1)
+summarise_res(y_crossModelAgeOnsetAdjRes, trueParms_set2)
+summarise_res(y2_crossModelAgeOnsetAdjRes, trueParms_set4)
 
 for (obj_name in listNames) {
   # Get the object from the global environment

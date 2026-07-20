@@ -2,7 +2,7 @@ library(haven)
 library(dplyr)
 library(cmdstanr)
 
-nSims <- 1000
+nSims <- 20
 
 # running sims in batches
 nBatches <- 10
@@ -54,7 +54,7 @@ init_fun <- function() {
   )
 }
 
-mod <- cmdstan_model("longModelLinear.stan")
+mod <- cmdstan_model(exe_file="longModelLinear.exe")
 
 j <- 0
 

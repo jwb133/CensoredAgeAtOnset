@@ -10,3 +10,6 @@
 # macOS files
 .DS_Store
 
+.log
+.Rhistory
+logs/

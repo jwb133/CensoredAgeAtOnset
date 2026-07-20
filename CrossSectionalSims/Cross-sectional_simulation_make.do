@@ -45,4 +45,3 @@ label var actual_onset_observed "actual onset (if observed)"
 }
 save D`i', replace
 }
-log close
