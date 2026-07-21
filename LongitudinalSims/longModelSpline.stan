@@ -11,6 +11,7 @@ functions {
     return [u1, u2, u3]';
   }
 }
+
 data {
   int<lower=1> n_subj;
   int<lower=1> n_parents;
@@ -39,6 +40,7 @@ data {
   int<lower=0> n_grid;
   vector[n_grid] t_grid;
 }
+
 parameters {
   real ageAtOnsetInt;
   real<lower=1e-6> sigma_ageAtOnset;
@@ -54,6 +56,7 @@ parameters {
   vector[3] b;
   real<lower=1e-6> sdYRes;
 }
+
 transformed parameters {
   vector[n_mutation] m;
   vector[n_mutation] m_aoo;
@@ -69,6 +72,7 @@ transformed parameters {
     ageAtOnset[subj_cens_onset[j]] = onset_cens[j];
   }
 }
+
 model {
   ageAtOnsetInt ~ normal(0, 100);
   sigma_ageAtOnset ~ normal(0, 10);
@@ -110,6 +114,7 @@ model {
     y[i] ~ normal(mu_i, sdYRes);
   }
 }
+
 generated quantities {
   corr_matrix[2] Cor_alpha;
   Cor_alpha = multiply_lower_tri_self_transpose(Lcorr);

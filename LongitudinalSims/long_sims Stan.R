@@ -232,7 +232,7 @@ fit_spline_outcome <- function(base_stan_data, y_col, coef_res, pred_res, j, see
   pred_res$essBulk[j, ] <- s_pred$`posterior::ess_bulk`
   pred_res$essTail[j, ] <- s_pred$`posterior::ess_tail`
   
-  list(coef_res = coef_res, pred_res = pred_res)
+  list(coef_res = coef_res, pred_res = pred_res, fit = res_spline$fit)
 }
 
 j <- 0
