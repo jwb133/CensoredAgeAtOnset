@@ -33,7 +33,7 @@ for (i in 2:nBatches) {
 
 # evaluate results
 
-# true parameters in model 1 when model 1 is correct (no age at onset effect)
+# true parameters in linear model for y1
 trueParms_set1 <- c(
   46,
   9*sqrt(0.4),
