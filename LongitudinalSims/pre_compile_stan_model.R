@@ -1,3 +1,4 @@
 library(cmdstanr)
 
-mod1 <- cmdstan_model("longModelLinear.stan")
+longModelLinear <- cmdstan_model("longModelLinear.stan")
+longModelSpline <- cmdstan_model("longModelSpline.stan")

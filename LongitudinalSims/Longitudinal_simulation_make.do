@@ -14,6 +14,7 @@ version 18.5
 set seed 973686515 
 set sortseed 413688647
 
+* forvalues i = 1/100 {	
 forvalues i = 1/10000 {
 qui{
 
@@ -23,7 +24,7 @@ gen mutation=_n
 gen onset_re=rnormal(0,9*sqrt(0.6))
 * onset random mutation  effect
 gen intercept_re=rnormal(0,5)
-* biomarker random mutation effect (on intecept)
+* biomarker random mutation effect (on intercept)
 summ *re
 
 gen c=rpoisson(6)
@@ -106,6 +107,10 @@ gen actual_onset_observed=actual_onset if generation==1 & carrier==1
 replace actual_onset_observed = . if max_time_rel_actual < 0 & generation==1 & carrier==1
 label var actual_onset_observed "actual onset (if observed)"
 
+* Generating mutation specific mean onsets
+gen actual_onset_gen0 = actual_onset if generation==0
+egen mutation_mean_onset = mean(actual_onset_gen0), by(mutation) 
+
 gen t=time_rel_actual
 gen term1 = max((t-knot1)^3,0)
 gen term2 = max((t-knot2)^3,0)
@@ -114,14 +119,17 @@ gen term4 = max((t-knot4)^3,0)
 
 mycubicspline
 
-gen y = intercept + slope*(time_rel_actual + 25) + 5*rnormal(0,1)
 * Generating outcomes 
+gen y = intercept + slope*(time_rel_actual + 25) + 5*rnormal(0,1)
 * Note that intercept relates to time 25 years before actual onset 
 gen y1 = y + 100 + 1*u1 + 0*u2 + 0*u3 
 gen y2 = y + 100 + 0*u1 + 0*u2 + 1.5*u3 
-label var y "outcome"
-* Generating two outcomes
+gen y3 = y + 100 + 1*u1 + 0*u2 + 1.5*u3 
+label var y1 "outcome1"
+label var y2 "outcome2"
+label var y3 "outcome3"
 
+* Generating cubic spline terms
 rename u1 u1_actual 
 rename u2 u2_actual 
 rename u3 u3_actual 
@@ -158,6 +166,39 @@ mycubicspline
 rename u1 u1_hybrid
 rename u2 u2_hybrid
 rename u3 u3_hybrid 
+
+
+gen time_rel_mutation_mean = age - mutation_mean_onset
+label var time_rel_mutation_mean "time relative to mutation mean onset"
+
+replace t=time_rel_mutation_mean
+replace term1 = max((t-knot1)^3,0)
+replace term2 = max((t-knot2)^3,0)
+replace term3 = max((t-knot3)^3,0)
+replace term4 = max((t-knot4)^3,0)
+
+mycubicspline
+
+rename u1 u1_mutation_mean
+rename u2 u2_mutation_mean
+rename u3 u3_mutation_mean 
+
+
+gen time_rel_hybrid2 = time_rel_actual
+replace time_rel_hybrid2 = time_rel_mutation_mean if max_time_rel_actual< 0
+label var time_rel_hybrid2 "time relative to actual onset (if observed), otherwise mutation mean"
+
+replace t=time_rel_hybrid2
+replace term1 = max((t-knot1)^3,0)
+replace term2 = max((t-knot2)^3,0)
+replace term3 = max((t-knot3)^3,0)
+replace term4 = max((t-knot4)^3,0)
+
+mycubicspline
+
+rename u1 u1_hybrid2
+rename u2 u2_hybrid2
+rename u3 u3_hybrid2
 
 }
 save NewData`i', replace

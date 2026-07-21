@@ -8,7 +8,7 @@ if (-not (Test-Path -Path $logFolder)) {
     New-Item -ItemType Directory -Path $logFolder
 }
 
-# Launch 8 batch jobs in parallel, each logging its output
+# Launch 10 batch jobs in parallel, each logging its output
 for ($i = 1; $i -le 10; $i++) {
     $logFile = Join-Path $logFolder ("batch_$i.log")
     $errorFile = Join-Path $logFolder ("batch_${i}_error.log")
