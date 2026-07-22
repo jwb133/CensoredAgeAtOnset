@@ -3,6 +3,7 @@
 
 # R binary data files
 *.RData
+!long_combined.RData
 
 # Stat binary data files
 *.dta

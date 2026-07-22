@@ -32,6 +32,11 @@ for (i in 2:nBatches) {
   }
 }
 
+save(y1_Res,
+     y2_Spline_Res, y2_Spline_Pred_Res,
+     y3_Spline_Res, y3_Spline_Pred_Res,
+     file = paste0(prefix, "_combined.RData"))
+
 for (obj_name in listNames) {
   # Get the object from the global environment
   mat <- get(obj_name, envir = .GlobalEnv)
