@@ -1,0 +1,14 @@
+#!/bin/bash
+#SBATCH --job-name=long_sims
+#SBATCH --array=1-500
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=4gb
+#SBATCH --time=01:00:00
+#SBATCH --output=logs/batch_%a.log
+#SBATCH --error=logs/batch_%a_error.log
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=lshjb12@lshtm.ac.uk
+
+module load R/4.4.0
+
+Rscript long_sims_stan.R $SLURM_ARRAY_TASK_ID

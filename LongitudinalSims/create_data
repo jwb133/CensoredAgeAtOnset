@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH --job-name=create_long_datasets
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=lshjb12@lshtm.ac.uk
+#SBATCH --ntasks=1
+#SBATCH --mem=1gb
+#SBATCH --time=02:00:00
+
+module load stata
+
+stata -b do Longitudinal_simulation_make.do

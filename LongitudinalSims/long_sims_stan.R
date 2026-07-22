@@ -2,10 +2,10 @@ library(haven)
 library(dplyr)
 library(cmdstanr)
 
-nSims <- 100
+nSims <- 1000
 
 # running sims in batches
-nBatches <- 10
+nBatches <- 500
 
 # Get arguments from the command line
 args <- commandArgs(trailingOnly = TRUE)
@@ -100,9 +100,9 @@ init_fun_spline <- function() {
   )
 }
 
-longModelLinear <- cmdstan_model(exe_file="longModelLinear.exe")
+longModelLinear <- cmdstan_model(exe_file="longModelLinear")
 
-longModelSpline <- cmdstan_model(exe_file="longModelSpline.exe")
+longModelSpline <- cmdstan_model(exe_file="longModelSpline")
 
 # preparations for cubic spline model
 knot <- c(-20,-10,0,10)

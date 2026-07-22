@@ -1,5 +1,5 @@
 
-nBatches <- 10
+nBatches <- 500
 prefix <- "long"
 
 batchLoad <- new.env()
@@ -7,7 +7,8 @@ batchLoad <- new.env()
 # load first batch into global env
 load(paste0(prefix, "_1.RData"))
 
-listNames <- c("y1_Res")
+listNames <- c("y1_Res","y2_Spline_Res","y2_Spline_Pred_Res",
+	"y3_Spline_Res","y3_Spline_Pred_Res")
   
 components <- c("ests", "stderrs", "ciLower", "ciUpper", "essBulk", "essTail")
 
@@ -30,38 +31,6 @@ for (i in 2:nBatches) {
     }
   }
 }
-
-# evaluate results
-
-# true parameters in linear model for y1
-trueParms_set1 <- c(
-  46,
-  9*sqrt(0.4),
-  9*sqrt(0.6),
-  0,
-  0.1,
-  sqrt(5^2+25^2*0.5^2)/10,
-  0.5/10,
-  (25*0.5^2)/(sqrt(5^2+5^2+25^2*0.5^2)*sqrt(0.5^2)),
-  0.5,
-  0.5)
-
-summarise_res <- function(res, trueParms) {
-  list(
-    mean_est = colMeans(res$ests),
-    true = trueParms,
-    emp_sd = apply(res$ests, 2, sd),
-    mean_post_sd = colMeans(res$stderrs),
-    coverage = sapply(seq_along(trueParms), function(i) {
-      mean((res$ciLower[, i] < trueParms[i]) & (res$ciUpper[, i] > trueParms[i]))
-    }),
-    mean_ess_bulk = colMeans(res$essBulk),
-    mean_ess_tail = colMeans(res$essTail)
-  )
-}
-
-summarise_res(y1_Res,  trueParms_set1)
-
 
 for (obj_name in listNames) {
   # Get the object from the global environment

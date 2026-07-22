@@ -1,3 +1,5 @@
+cd Datasets
+
 capture program drop mycubicspline
 program define mycubicspline, rclass 
 gen u1=t
