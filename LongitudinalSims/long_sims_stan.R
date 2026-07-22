@@ -26,8 +26,7 @@ vars <- c(
 # back-transformed original-scale coefficients)
 vars_spline <- c(
   "ageAtOnsetInt", "sigma_ageAtOnset", "sd_aoo_mutation",
-  "alpha0", "b[1]", "b[2]", "b[3]",
-  "b_orig[1]", "b_orig[2]", "b_orig[3]", "alpha0_orig",
+  "alpha0_orig", "b_orig[1]", "b_orig[2]", "b_orig[3]",
   "sd_alpha[1]", "sd_alpha[2]", "Cor_alpha[1,2]",
   "sd_mutation", "sdYRes"
 )
