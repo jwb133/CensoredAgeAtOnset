@@ -1,5 +1,5 @@
 
-nBatches <- 500
+nBatches <- 1000
 prefix <- "long"
 
 batchLoad <- new.env()

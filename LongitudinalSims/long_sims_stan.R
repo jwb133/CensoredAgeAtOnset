@@ -2,10 +2,10 @@ library(haven)
 library(dplyr)
 library(cmdstanr)
 
-nSims <- 1000
+nSims <- 10000
 
 # running sims in batches
-nBatches <- 500
+nBatches <- 1000
 
 # Get arguments from the command line
 args <- commandArgs(trailingOnly = TRUE)
