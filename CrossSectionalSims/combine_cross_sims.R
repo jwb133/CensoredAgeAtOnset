@@ -1,5 +1,5 @@
 
-nBatches <- 10
+nBatches <- 100
 prefix <- "cross"
 
 batchLoad <- new.env()
@@ -38,7 +38,7 @@ for (i in 2:nBatches) {
 
 # true parameters in model 1 when model 1 is correct (no age at onset effect)
 trueParms_set1 <- c(
-  46 * (1 - 48.6 / 81),
+  6 * (1 - 48.6 / 81),
   48.6 / 81,
   sqrt(81 * (1 - (48.6 / 81)^2)),
   100,
@@ -48,7 +48,7 @@ trueParms_set1 <- c(
 )
 
 trueParms_set2 <- c(
-  46 * (1 - 48.6 / 81),
+  6 * (1 - 48.6 / 81),
   48.6 / 81,
   sqrt(81 * (1 - (48.6 / 81)^2)),
   100,
@@ -60,10 +60,10 @@ trueParms_set2 <- c(
 )
 
 trueParms_set4 <- c(
-  46 * (1 - 48.6 / 81),
+  6 * (1 - 48.6 / 81),
   48.6 / 81,
   sqrt(81 * (1 - (48.6 / 81)^2)),
-  60,
+  100,
   2,
   27,
   94,

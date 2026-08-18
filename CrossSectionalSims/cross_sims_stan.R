@@ -5,7 +5,7 @@ library(cmdstanr)
 nSims <- 10000
 
 # running sims in batches
-nBatches <- 10
+nBatches <- 100
 
 # Get arguments from the command line
 args <- commandArgs(trailingOnly = TRUE)

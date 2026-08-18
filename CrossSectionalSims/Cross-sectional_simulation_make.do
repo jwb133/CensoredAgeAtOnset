@@ -1,4 +1,4 @@
-clear
+cd Datasets
 
 version 18.5
 set seed 398268137
