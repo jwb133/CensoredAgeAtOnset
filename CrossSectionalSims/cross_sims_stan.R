@@ -17,7 +17,7 @@ batch <- as.numeric(args[1])
 datasetsToAnalyse <- ((batch-1)*(nSims/nBatches)+1):((batch)*(nSims/nBatches))
 
 vars <- c(
-  "ageAtOnsetIntOrig", "ageAtOnsetParent", "sigma_ageAtOnset",
+  "ageAtOnsetInt", "ageAtOnsetParent", "sigma_ageAtOnset",
   "alpha_0Orig", "alpha_tOrig", "sdYResOrig", "fitted_mean"
 )
 varsAgeAdj <- c(vars, "alpha_oOrig", "alpha_t_minus_o")
@@ -44,8 +44,8 @@ init_fun <- function() {
   )
 }
 
-crossModel <- cmdstan_model(exe_file="crossModel.exe")
-crossModelAgeOnsetAdj <- cmdstan_model(exe_file="crossModelAgeOnsetAdj.exe")
+crossModel <- cmdstan_model(exe_file="crossModel")
+crossModelAgeOnsetAdj <- cmdstan_model(exe_file="crossModelAgeOnsetAdj")
 
 metrics <- c("ests", "stderrs", "ciLower", "ciUpper", "essBulk", "essTail")
 
@@ -91,8 +91,6 @@ for (i in datasetsToAnalyse) {
   j <- j+1
   print(i)
   
-  # Stan
-
   fileName <- paste("Datasets/D", i, ".dta", sep = "")
   simData <- read_stata(fileName)
 

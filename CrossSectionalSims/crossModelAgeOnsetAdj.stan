@@ -88,19 +88,16 @@ model {
 }
 
 generated quantities {
-  real ageAtOnsetIntOrig;
-  ageAtOnsetIntOrig = ageAtOnsetInt+40*(1-ageAtOnsetParent);
-  
   real alpha_0Orig, alpha_tOrig, alpha_oOrig, sdYResOrig;
   alpha_tOrig = alpha_t*10;
   alpha_oOrig = alpha_o*10;
 
-  alpha_0Orig = 100+10*(alpha_0-40*alpha_o);
+  alpha_0Orig = 100+10*alpha_0;
   sdYResOrig = sdYRes*10;
   
   real alpha_t_minus_o;
   alpha_t_minus_o = alpha_tOrig-alpha_oOrig;
   
   real fitted_mean;
-  fitted_mean = alpha_0Orig -6*alpha_tOrig + 46*alpha_oOrig;
+  fitted_mean = alpha_0Orig -6*alpha_tOrig + 6*alpha_oOrig;
 }

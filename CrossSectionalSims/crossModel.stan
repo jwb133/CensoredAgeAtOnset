@@ -86,9 +86,6 @@ model {
 }
 
 generated quantities {
-  real ageAtOnsetIntOrig;
-  ageAtOnsetIntOrig = ageAtOnsetInt+40*(1-ageAtOnsetParent);
-  
   real alpha_0Orig, alpha_tOrig, sdYResOrig;
   alpha_0Orig = alpha_0*10+100;
   alpha_tOrig = alpha_t*10;
