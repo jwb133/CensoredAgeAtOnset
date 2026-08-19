@@ -91,15 +91,37 @@ summarise_res(y_crossModelRes,  trueParms_set1)
 summarise_res(y_crossModelAgeOnsetAdjRes, trueParms_set2)
 summarise_res(y2_crossModelAgeOnsetAdjRes, trueParms_set4)
 
+vars <- c(
+  "ageAtOnsetInt", "ageAtOnsetParent", "sigma_ageAtOnset",
+  "alpha_0Orig", "alpha_tOrig", "sdYResOrig", "fitted_mean"
+)
+varsAgeAdj <- c(vars, "alpha_oOrig", "alpha_t_minus_o")
+
+varSetMap <- list(
+  y_crossModelRes             = vars,
+  y_crossModelAgeOnsetAdjRes  = varsAgeAdj,
+  y2_crossModelRes            = vars,
+  y2_crossModelAgeOnsetAdjRes = varsAgeAdj
+)
+
 for (obj_name in listNames) {
   # Get the object from the global environment
   mat <- get(obj_name, envir = .GlobalEnv)
   mat$essBulk <- NULL
   mat$essTail <- NULL
   
+  varNames <- varSetMap[[obj_name]]
+  
+  # Build a single data frame with component-prefixed, named columns
+  df <- do.call(cbind, lapply(names(mat), function(comp) {
+    m <- mat[[comp]]
+    colnames(m) <- paste0(comp, "_", varNames)
+    m
+  }))
+  
   # Construct filename
   filename <- paste0(prefix, "_", obj_name, ".csv")
   
   # Write to CSV
-  write.csv(mat, file = filename, row.names = FALSE)
+  write.csv(df, file = filename, row.names = FALSE)
 }
